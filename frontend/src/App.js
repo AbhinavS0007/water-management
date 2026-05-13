@@ -24,7 +24,7 @@ function App() {
       setSelectedTubewell(res.data[0]);
     }
   };
-// eslint-disable-next-line react-hooks/exhaustive-deps
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => {
     fetchTubewells();
   }, []);
@@ -40,7 +40,7 @@ function App() {
     setPersons(res.data);
     setSelectedPerson(res.data[0] || null);
   };
-// eslint-disable-next-line react-hooks/exhaustive-deps
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => {
     fetchPersons();
   }, [selectedTubewell]);
@@ -55,7 +55,7 @@ function App() {
 
     setEntries(res.data);
   };
-// eslint-disable-next-line react-hooks/exhaustive-deps
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => {
     fetchEntries();
   }, [selectedTubewell]);
