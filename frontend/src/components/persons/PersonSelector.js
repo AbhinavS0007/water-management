@@ -25,8 +25,7 @@ const PersonSelector = ({
     }
   };
 
-  // close dropdown on outside click
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
