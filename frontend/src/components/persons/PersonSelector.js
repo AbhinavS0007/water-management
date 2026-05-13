@@ -19,21 +19,32 @@ const PersonSelector = ({
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this person?"
     );
+
     if (confirmDelete) {
       onDeletePerson(id);
     }
   };
-// eslint-disable-next-line react-hooks/exhaustive-deps
+
   // close dropdown on outside click
-  (() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
     const handleClickOutside = (event) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target)
+      ) {
         setShowDropdown(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+    };
   }, []);
 
   return (
