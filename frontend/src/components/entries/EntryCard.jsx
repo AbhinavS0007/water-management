@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import EntryForm from "./EntryForm";
+// import EntryForm from "./EntryForm";
 import EditEntryModal from "./EditEntryModal";
 
 const EntryCard = ({ entry, onDelete, onUpdate }) => {

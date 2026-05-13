@@ -25,7 +25,7 @@ const Navbar = ({
       onDeleteTubewell(id);
     }
   };
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   // close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
