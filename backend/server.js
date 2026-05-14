@@ -9,10 +9,13 @@ dotenv.config();
 const app = express();
 
 // 🔹 Middleware
+
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: ["http://localhost:3000", process.env.FRONTEND_URL, "https://water-management-o141.vercel.app"],
   credentials: true
 }));
+
 app.use(express.json());
 
 // 🔹 Routes
@@ -42,7 +45,7 @@ mongoose
     console.log("✅ MongoDB Connected");
 
     const PORT = process.env.PORT || 5002;
-    await seedTubewells(); // 👈 auto create
+    // await seedTubewells(); // 👈 auto create
 
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
