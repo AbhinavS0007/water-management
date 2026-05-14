@@ -5,7 +5,7 @@ exports.getAllBills = async (req, res) => {
     try {
       const { hourlyRate } = req.query;
 
-      console.log("🔥 BILL API HIT");
+      ("🔥 BILL API HIT");
 console.log("QUERY:", req.query);
   
       if (!hourlyRate) {
@@ -21,9 +21,15 @@ console.log("QUERY:", req.query);
       let totalMoney = 0
   
       for (let person of persons) {
+        console.log(person);
+        
         const entries = await UsageEntry.find({
           person: person._id,
+
         }).populate("tubewell");
+
+        console.log(person._id);
+        
   
         let totalMinutes = 0;
   
@@ -40,6 +46,7 @@ console.log("QUERY:", req.query);
             end: `${entry.endHour}:${String(entry.endMinute).padStart(2, "0")}`,
             hours: hours,   // keep number
             amount: amount,
+
           };
         });
   
@@ -47,8 +54,11 @@ console.log("QUERY:", req.query);
         const totalAmount = totalHours * Number(hourlyRate);
 
         totalMoney += totalAmount
-  
+
+        console.log(person);
+        
         result.push({
+          personId: person._id,
           person: person.name,
           entries: formattedEntries,
           totalHours,
@@ -57,11 +67,6 @@ console.log("QUERY:", req.query);
       }
 
       console.log("totalMoney - ", totalMoney);
-    //   console.log("FINAL RESPONSE:", {
-    //     totalMoney,
-    //     hourlyRate,
-    //     bills: result.length,
-    //   });
 
   
       return res.json({
