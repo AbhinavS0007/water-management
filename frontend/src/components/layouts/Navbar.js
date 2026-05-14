@@ -105,6 +105,22 @@ const Navbar = ({
         Home
       </button>
 
+      <button
+        onClick={() =>
+          navigate("/receivedPayment", {
+            state: { tubewell: selectedTubewell },
+          })
+        }
+        disabled={!selectedTubewell}
+        className={`px-4 py-2 rounded-lg text-white ${
+          selectedTubewell
+            ? "bg-green-600 hover:bg-green-700"
+            : "bg-gray-400 cursor-not-allowed"
+        }`}
+      >
+        viewPaidBills
+      </button>
+
       {/* RIGHT */}
       <button
         onClick={() =>

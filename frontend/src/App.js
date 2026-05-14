@@ -5,6 +5,7 @@ import Layout from "./Layout";
 import Home from "./components/pages/Home";
 import AllBills from "./components/bills/AllBills";
 import api from "./api/axios"
+import ReceivedPayment from "./components/bills/ReceivedPayment";
 
 function App() {
   const [tubewells, setTubewells] = useState([]);
@@ -145,6 +146,7 @@ function App() {
           />
 
           <Route path="/bills" element={<AllBills />} />
+          <Route path="/receivedPayment" element={<ReceivedPayment />} />
         </Routes>
       </Layout>
     </BrowserRouter>

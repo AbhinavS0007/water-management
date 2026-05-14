@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import api from "../../api/axios"
 
 export default function AllBills() {
@@ -32,7 +31,7 @@ export default function AllBills() {
     }, []);
 
     console.log("All Bills", bills);
-    
+
 
     const formatHours = (decimalHours) => {
         const totalMinutes = Math.round(decimalHours * 60);
@@ -40,6 +39,22 @@ export default function AllBills() {
         const m = totalMinutes % 60;
         return `${h} hr ${m} min`;
     };
+
+    const hadlePaymentComplete = async (entries) => {
+        try {
+            const validEntries = entries.filter(e => e !== null && e !== undefined);
+            
+            const res = await api.post(`/api/bills/payment`, {
+                entries: validEntries
+            });
+            console.log(res.data);
+            fetchBills();
+            alert("Payment marked as complete!");
+        } catch (err) {
+            console.log(err);
+            alert("Error marking payment");
+        }
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-100 via-blue-50 to-gray-100 p-6">
@@ -91,7 +106,7 @@ export default function AllBills() {
             {/* BILLS */}
             <div className="space-y-10 max-w-5xl mx-auto">
 
-                {bills.map((bill, index) => (
+                {bills.filter(bill => bill.entries.length > 0).map((bill, index) => (
                     <div
                         key={index}
                         className="bg-white rounded-3xl shadow-xl overflow-hidden border hover:shadow-2xl transition"
@@ -129,7 +144,7 @@ export default function AllBills() {
 
                             {/* ENTRIES */}
                             <div className="divide-y">
-                                {bill.entries.map((e, i) => (
+                                {bill.entries.filter(e => e !== null).map((e, i) => (
                                     <div
                                         key={i}
                                         className="grid grid-cols-5 py-3 text-sm text-gray-700"
@@ -158,7 +173,7 @@ export default function AllBills() {
                             </div>
 
                             {/* TOTAL */}
-                            <div className="mt-6 flex justify-between items-center bg-gray-50 p-4 rounded-2xl">
+                            {/* <div className="mt-6 flex justify-around  bg-gray-50 p-4 rounded-2xl">
 
                                 <div>
                                     <p className="text-sm text-gray-500">Total Time</p>
@@ -173,6 +188,50 @@ export default function AllBills() {
                                         ₹{Math.round(bill.totalAmount)}
                                     </p>
                                 </div>
+
+                                <button
+                                    onClick={hadlePaymentComplete}
+                                    className="w-full text-left px-4 py-3 border-t text-green-600 hover:bg-green-50 font-medium"
+                                >
+
+                                    payment received
+                                    
+                                </button>
+
+                            </div> */}
+
+                            <div className="mt-6 bg-gray-50 rounded-2xl p-5 border border-gray-100">
+
+                                <div className="flex items-center justify-between gap-6 flex-wrap">
+
+                                    <div>
+                                        <p className="text-sm text-gray-500 mb-1">
+                                            Total Time
+                                        </p>
+
+                                        <p className="text-xl font-bold text-gray-800">
+                                            {formatHours(Number(bill.totalHours))}
+                                        </p>
+                                    </div>
+
+                                    <div className="text-right">
+                                        <p className="text-sm text-gray-500 mb-1">
+                                            Total Amount
+                                        </p>
+
+                                        <p className="text-3xl font-extrabold text-indigo-600">
+                                            ₹{Math.round(bill.totalAmount)}
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <button
+                                    onClick={() => hadlePaymentComplete(bill.entries)}
+                                    className="mt-5 w-full bg-green-600 hover:bg-green-700 transition-all duration-200 text-white font-semibold py-3 rounded-xl shadow-sm"
+                                >
+                                    Payment Received
+                                </button>
 
                             </div>
 

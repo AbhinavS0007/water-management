@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import api from "../../api/axios"
 import EditEntryModal from "./EditEntryModal";
 
@@ -29,7 +28,7 @@ const EntryCard = ({ entry, onDelete, onUpdate }) => {
     if (!confirmDelete) return;
   
     try {
-      await axios.delete(
+      await api.delete(
         `/api/entries/${entry._id}`
       );
   
@@ -86,9 +85,13 @@ const EntryCard = ({ entry, onDelete, onUpdate }) => {
 
             <button
               onClick={handleDelete}
-              className="text-xs px-3 py-1 rounded-full font-semibold bg-green-200 text-green-600"
+              className={`text-xs px-3 py-1 rounded-full font-semibold ${
+                entry?.isPaid
+                  ? "bg-green-200 text-green-700"
+                  : "bg-red-200 text-red-700"
+              }`}
             >
-              paid
+              {entry?.isPaid === true ? `paid`: `notPaid`}
             </button>
           </div>
         </div>
