@@ -12,7 +12,7 @@ export default function AllBills() {
             setLoading(true);
 
             const res = await axios.get(
-                `http://localhost:5002/api/bills/all?hourlyRate=${rate}`
+                `${api}/api/bills/all?hourlyRate=${rate}`
             );
 
             settotalCollection(res.data.totalMoney)

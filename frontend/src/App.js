@@ -5,6 +5,7 @@ import axios from "axios";
 import Layout from "./Layout";
 import Home from "./components/pages/Home";
 import AllBills from "./components/bills/AllBills";
+import api from "./api/axios"
 
 function App() {
   const [tubewells, setTubewells] = useState([]);
@@ -17,7 +18,7 @@ function App() {
 
   // ------------------ TUBEWELLS ------------------
   const fetchTubewells = async () => {
-    const res = await axios.get("http://localhost:5002/api/tubewells");
+    const res = await axios.get(`${api}/api/tubewells`);
     setTubewells(res.data);
 
     if (!selectedTubewell && res.data.length > 0) {
@@ -34,7 +35,7 @@ function App() {
     if (!selectedTubewell?._id) return;
 
     const res = await axios.get(
-      `http://localhost:5002/api/persons?tubewell=${selectedTubewell._id}`
+      `${api}/api/persons?tubewell=${selectedTubewell._id}`
     );
 
     setPersons(res.data);
@@ -50,7 +51,7 @@ function App() {
     if (!selectedTubewell?._id) return;
 
     const res = await axios.get(
-      `http://localhost:5002/api/entries?tubewellId=${selectedTubewell._id}`
+      `${api}/api/entries?tubewellId=${selectedTubewell._id}`
     );
 
     setEntries(res.data);
@@ -65,7 +66,7 @@ function App() {
     const name = prompt("Enter tubewell name");
     if (!name) return;
 
-    await axios.post("http://localhost:5002/api/tubewells", { name });
+    await axios.post(`${api}/api/tubewells`, { name });
     fetchTubewells();
   };
 
@@ -73,7 +74,7 @@ function App() {
     if (!window.confirm("Delete tubewell?")) return;
 
     await axios.delete(
-      `http://localhost:5002/api/tubewells/${id}`
+      `${api}/api/tubewells/${id}`
     );
 
     setTubewells((prev) => prev.filter((t) => t._id !== id));
@@ -87,7 +88,7 @@ function App() {
     const name = prompt("Enter person name");
     if (!name || !selectedTubewell) return;
 
-    await axios.post("http://localhost:5002/api/persons", {
+    await axios.post(`${api}/api/persons`, {
       name,
       tubewell: selectedTubewell._id,
     });
@@ -99,7 +100,7 @@ function App() {
     if (!window.confirm("Delete person?")) return;
 
     await axios.delete(
-      `http://localhost:5002/api/persons/${id}`
+      `${api}/api/persons/${id}`
     );
 
     fetchPersons();
@@ -112,7 +113,7 @@ function App() {
     };
 
     await axios.post(
-      `http://localhost:5002/api/entries?tubewellId=${selectedTubewell._id}`,
+      `${api}/api/entries?tubewellId=${selectedTubewell._id}`,
       payload
     );
 

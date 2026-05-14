@@ -30,7 +30,7 @@ const EntryCard = ({ entry, onDelete, onUpdate }) => {
   
     try {
       await axios.delete(
-        `http://localhost:5002/api/entries/${entry._id}`
+        `/api/entries/${entry._id}`
       );
   
       if (onDelete) onDelete(entry._id);
@@ -46,7 +46,7 @@ const EntryCard = ({ entry, onDelete, onUpdate }) => {
   const handleUpdate = async (data) => {
     try {
       const res = await axios.put(
-        `http://localhost:5002/api/entries/${entry._id}`,
+        `${api}/api/entries/${entry._id}`,
         data
       );
 
