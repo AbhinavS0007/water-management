@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 import Layout from "./Layout";
 import Home from "./components/pages/Home";
@@ -18,7 +17,7 @@ function App() {
 
   // ------------------ TUBEWELLS ------------------
   const fetchTubewells = async () => {
-    const res = await axios.get(`${api}/api/tubewells`);
+    const res = await api.get(`/api/tubewells`);
     setTubewells(res.data);
 
     if (!selectedTubewell && res.data.length > 0) {
@@ -34,8 +33,8 @@ function App() {
   const fetchPersons = async () => {
     if (!selectedTubewell?._id) return;
 
-    const res = await axios.get(
-      `${api}/api/persons?tubewell=${selectedTubewell._id}`
+    const res = await api.get(
+      `/api/persons?tubewell=${selectedTubewell._id}`
     );
 
     setPersons(res.data);
@@ -50,8 +49,8 @@ function App() {
   const fetchEntries = async () => {
     if (!selectedTubewell?._id) return;
 
-    const res = await axios.get(
-      `${api}/api/entries?tubewellId=${selectedTubewell._id}`
+    const res = await api.get(
+      `/api/entries?tubewellId=${selectedTubewell._id}`
     );
 
     setEntries(res.data);
@@ -66,15 +65,15 @@ function App() {
     const name = prompt("Enter tubewell name");
     if (!name) return;
 
-    await axios.post(`${api}/api/tubewells`, { name });
+    await api.post(`/api/tubewells`, { name });
     fetchTubewells();
   };
 
   const handleDeleteTubewell = async (id) => {
     if (!window.confirm("Delete tubewell?")) return;
 
-    await axios.delete(
-      `${api}/api/tubewells/${id}`
+    await api.delete(
+      `/api/tubewells/${id}`
     );
 
     setTubewells((prev) => prev.filter((t) => t._id !== id));
@@ -88,7 +87,7 @@ function App() {
     const name = prompt("Enter person name");
     if (!name || !selectedTubewell) return;
 
-    await axios.post(`${api}/api/persons`, {
+    await api.post(`/api/persons`, {
       name,
       tubewell: selectedTubewell._id,
     });
@@ -99,8 +98,8 @@ function App() {
   const handleDeletePerson = async (id) => {
     if (!window.confirm("Delete person?")) return;
 
-    await axios.delete(
-      `${api}/api/persons/${id}`
+    await api.delete(
+      `/api/persons/${id}`
     );
 
     fetchPersons();
@@ -112,8 +111,8 @@ function App() {
       tubewell: selectedTubewell._id,
     };
 
-    await axios.post(
-      `${api}/api/entries?tubewellId=${selectedTubewell._id}`,
+    await api.post(
+      `/api/entries?tubewellId=${selectedTubewell._id}`,
       payload
     );
 

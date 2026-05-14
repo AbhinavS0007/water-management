@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import api from "../../api/axios"
 
 export default function AllBills() {
     const [bills, setBills] = useState([]);
@@ -11,8 +12,8 @@ export default function AllBills() {
         try {
             setLoading(true);
 
-            const res = await axios.get(
-                `${api}/api/bills/all?hourlyRate=${rate}`
+            const res = await api.get(
+                `/api/bills/all?hourlyRate=${rate}`
             );
 
             settotalCollection(res.data.totalMoney)
@@ -29,6 +30,9 @@ export default function AllBills() {
     useEffect(() => {
         fetchBills();
     }, []);
+
+    console.log("All Bills", bills);
+    
 
     const formatHours = (decimalHours) => {
         const totalMinutes = Math.round(decimalHours * 60);

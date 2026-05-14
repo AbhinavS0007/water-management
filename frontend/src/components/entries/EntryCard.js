@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-// import EntryForm from "./EntryForm";
+import api from "../../api/axios"
 import EditEntryModal from "./EditEntryModal";
 
 const EntryCard = ({ entry, onDelete, onUpdate }) => {
@@ -45,8 +45,8 @@ const EntryCard = ({ entry, onDelete, onUpdate }) => {
   // ✏️ UPDATE ENTRY
   const handleUpdate = async (data) => {
     try {
-      const res = await axios.put(
-        `${api}/api/entries/${entry._id}`,
+      const res = await api.put(
+        `/api/entries/${entry._id}`,
         data
       );
 
@@ -72,7 +72,7 @@ const EntryCard = ({ entry, onDelete, onUpdate }) => {
           <div className="flex gap-2">
             <button
               onClick={() => setShowUpdate(true)}
-              className="text-xs px-3 py-1 rounded-full font-semibold bg-green-100 text-green-600"
+              className="text-xs px-3 py-1 rounded-full font-semibold bg-orange-100 text-orange-600"
             >
               update
             </button>
@@ -82,6 +82,13 @@ const EntryCard = ({ entry, onDelete, onUpdate }) => {
               className="text-xs px-3 py-1 rounded-full font-semibold bg-red-100 text-red-600"
             >
               delete
+            </button>
+
+            <button
+              onClick={handleDelete}
+              className="text-xs px-3 py-1 rounded-full font-semibold bg-green-200 text-green-600"
+            >
+              paid
             </button>
           </div>
         </div>
