@@ -10,9 +10,8 @@ const app = express();
 
 // 🔹 Middleware
 
-
 app.use(cors({
-  origin: [ process.env.FRONTEND_URL, "https://water-management-o141.vercel.app"],
+  origin: [ "http://localhost:3000", process.env.FRONTEND_URL, "https://water-management-o141.vercel.app", "http://localhost:3000",  ],
   credentials: true
 }));
 

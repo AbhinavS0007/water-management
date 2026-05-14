@@ -19,6 +19,11 @@ const usageEntrySchema = new mongoose.Schema(
       required: true,
     },
 
+    isPaid:{
+      type: Boolean,
+      default:false
+    },
+
     // ⏱ Raw Time Input
     startHour: {
       type: Number,

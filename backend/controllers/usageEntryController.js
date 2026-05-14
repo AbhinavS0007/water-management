@@ -78,7 +78,7 @@ exports.createEntry = async (req, res) => {
       description,
     } = req.body;
 
-    console.log(req.body);
+
     
 
     // ✅ Basic validation
@@ -172,10 +172,6 @@ exports.createEntry = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
-
-
-
 
 // ================= GET ENTRIES =================
 exports.getEntries = async (req, res) => {
