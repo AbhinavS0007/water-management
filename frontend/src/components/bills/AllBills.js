@@ -30,7 +30,7 @@ export default function AllBills() {
         fetchBills();
     }, []);
 
-    console.log("All Bills", bills);
+
 
 
     const formatHours = (decimalHours) => {
@@ -47,7 +47,7 @@ export default function AllBills() {
             const res = await api.post(`/api/bills/payment`, {
                 entries: validEntries
             });
-            console.log(res.data);
+
             fetchBills();
             alert("Payment marked as complete!");
         } catch (err) {

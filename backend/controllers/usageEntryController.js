@@ -177,7 +177,7 @@ exports.createEntry = async (req, res) => {
 exports.getEntries = async (req, res) => {
   try {
 
-    console.log(req.query);
+
     
     const { tubewellId } = req.query;
 
@@ -210,7 +210,7 @@ exports.updateEntry = async (req, res) => {
   try {
     const entryId = req.params.id;
 
-    console.log("UPDATE CALLED", entryId);
+
 
     const updatedEntry = await UsageEntry.findByIdAndUpdate(
       entryId,
@@ -250,7 +250,7 @@ exports.updateEntry = async (req, res) => {
 exports.deleteEntry = async (req, res) => {
   try {
     const entryId = req.params.id;
-    console.log("DELETE CALLED:", req.params.id);
+
 
     const deletedEntry = await UsageEntry.findByIdAndDelete(entryId);
 
